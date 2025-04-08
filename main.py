@@ -95,3 +95,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# Команда /start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Привет! Я бот-прогнозист для матчей Dota 2.\n\n"
+        "Команды:\n"
+        "/прогноз — получить прогнозы на ближайшие матчи\n"
+        "/help — показать список команд\n\n"
+        "Спроси — я подскажу!"
+    )
+
+# Команда /help
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Доступные команды:\n"
+        "/start — информация о боте\n"
+        "/прогноз — прогнозы на ближайшие матчи"
+    )
