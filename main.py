@@ -90,7 +90,7 @@ async def forecast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Запуск бота
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
-    app.add_handler(CommandHandler("прогноз", forecast))
+    app.add_handler(CommandHandler("forecast", forecast))
     app.run_polling()
 
 if __name__ == '__main__':
