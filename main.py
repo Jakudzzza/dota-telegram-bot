@@ -88,7 +88,7 @@ async def forecast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(text)
 
 # Запуск бота
-    def main():
+def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("forecast", forecast))
@@ -97,7 +97,7 @@ async def forecast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     app.run_polling()
 
-      if __name__ == '__main__':
+if __name__ == '__main__':
     main()
 
 # Команда /start
