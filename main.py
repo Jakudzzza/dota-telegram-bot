@@ -47,7 +47,7 @@ def analyze_form(matches):
         form.append("W" if win else "L")
     return "-".join(form)
 
-# Расчёт вероятности победы (очень упрощённо)
+# Расчёт вероятности победы
 def predict_winner(radiant_form, dire_form):
     radiant_score = radiant_form.count("W")
     dire_score = dire_form.count("W")
@@ -55,7 +55,7 @@ def predict_winner(radiant_form, dire_form):
     if total == 0:
         return "Ничья", 50
     radiant_prob = int((radiant_score / total) * 100)
-    return "Radiant" if radiant_prob > 50 else "Dire", radiant_prob
+    return ("Radiant", radiant_prob) if radiant_prob > 50 else ("Dire", 100 - radiant_prob)
 
 # Генерация текста прогноза
 def build_prediction_text(match):
@@ -87,19 +87,6 @@ async def forecast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text = build_prediction_text(match)
         await update.message.reply_text(text)
 
-# Запуск бота
-def main():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
-
-    app.add_handler(CommandHandler("forecast", forecast))
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_command))
-
-    app.run_polling()
-
-if __name__ == '__main__':
-    main()
-
 # Команда /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -115,5 +102,20 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Доступные команды:\n"
         "/start — информация о боте\n"
-        "/прогноз — прогнозы на ближайшие матчи"
+        "/прогноз — прогнозы на ближайшие матчи\n"
+        "/help — список всех команд"
     )
+
+# Запуск бота
+def main():
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    app.add_handler(CommandHandler("forecast", forecast))
+    app.add_handler(CommandHandler("прогноз", forecast))
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+
+    app.run_polling()
+
+if __name__ == '__main__':
+    main()
